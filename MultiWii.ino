@@ -693,6 +693,9 @@ void go_arm() {
   #endif
     ) {
       if(!f.ARMED) {
+        
+        Gyro_init(); // j0uni: calibrate gyros here..
+        
         f.ARMED = 1;
         headFreeModeHold = heading;
       }

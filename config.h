@@ -25,10 +25,10 @@
 
   /**************************    The type of multicopter    ****************************/
     //#define GIMBAL
-    #define BI
+    // #define BI
     //#define TRI
     //#define QUADP
-    //#define QUADX
+    #define QUADX
     //#define Y4
     //#define Y6
     //#define HEX6
@@ -131,19 +131,19 @@
       //#define LADYBIRD
       //#define MEGAWAP_V2_STD     // available here: http://www.multircshop.com                    <- confirmed by Alex
       //#define MEGAWAP_V2_ADV
-      //#define HK_MultiWii_SE_V2  // Hobbyking board with MPU6050 + HMC5883L + BMP085 
+      #define HK_MultiWii_SE_V2  // Hobbyking board with MPU6050 + HMC5883L + BMP085 
 
       
     /***************************    independent sensors    ********************************/
       /* leave it commented if you already checked a specific board above */
       /* I2C gyroscope */
       //#define WMP
-      #define ITG3200
+      //#define ITG3200
       //#define L3G4200D
       //#define MPU6050       //combo + ACC
 
       /* I2C accelerometer */
-      #define NUNCHUCK  // if you want to use the nunckuk connected to a WMP
+      //#define NUNCHUCK  // if you want to use the nunckuk connected to a WMP
       //#define MMA7455
       //#define ADXL345
       //#define BMA020

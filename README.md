@@ -1,4 +1,4 @@
-MultiWii-s-better-blues
+MultiWii's better blues (MultiWii-BB)
 =======================
 
 MultiWii's better blues is a fork of MultiWii codebase at 22.12.1012.

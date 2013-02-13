@@ -52,11 +52,11 @@
     //#define MINTHROTTLE 1120 // for Super Simple ESCs 10A
     //#define MINTHROTTLE 1064 // special ESC (simonk)
     //#define MINTHROTTLE 1050 // for brushed ESCs like ladybird
-    #define MINTHROTTLE 1150
+    #define MINTHROTTLE 1000 // simonk=(stop at 1060us, full throttle at 1860us)
 
   /****************************    Motor maxthrottle    *******************************/
     /* this is the maximum value for the ESCs at full power, this value can be increased up to 2000 */
-    #define MAXTHROTTLE 1850
+    #define MAXTHROTTLE 1860
 
   /****************************    Mincommand          *******************************/
     /* this is the value for the ESCs when they are not armed
@@ -64,8 +64,8 @@
     #define MINCOMMAND  1000
 
   /**********************************    I2C speed   ************************************/
-    #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
-    //#define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
+   // #define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
+    #define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
 
   /***************************    Internal i2c Pullups   ********************************/
     /* enable internal I2C pull ups (in most cases it is better to use external pullups) */
@@ -125,13 +125,13 @@
       //#define Bobs_9DOF_V1     // BobsQuads 9DOF V1 with ITG3200, BMA180 & HMC5883L
       //#define Bobs_10DOF_BMP_V1 // BobsQuads 10DOF V1 with ITG3200, BMA180, HMC5883L & BMP180 - BMP180 is software compatible with BMP085
       //#define FLYDUINO_MPU
-      //#define CRIUS_AIO_PRO_V1
+      #define CRIUS_AIO_PRO_V1
       //#define DESQUARED6DOFV2GO  // DEsquared V2 with ITG3200 only
       //#define DESQUARED6DOFV4    // DEsquared V4 with MPU6050
       //#define LADYBIRD
       //#define MEGAWAP_V2_STD     // available here: http://www.multircshop.com                    <- confirmed by Alex
       //#define MEGAWAP_V2_ADV
-      #define HK_MultiWii_SE_V2  // Hobbyking board with MPU6050 + HMC5883L + BMP085 
+      //#define HK_MultiWii_SE_V2  // Hobbyking board with MPU6050 + HMC5883L + BMP085 
 
       
     /***************************    independent sensors    ********************************/
@@ -201,8 +201,8 @@
    /********************************    ARM/DISARM    *********************************/
    /* optionally disable stick combinations to arm/disarm the motors.
      * In most cases one of the two options to arm/disarm via TX stick is sufficient */
-    //#define ALLOW_ARM_DISARM_VIA_TX_YAW
-    #define ALLOW_ARM_DISARM_VIA_TX_ROLL
+    #define ALLOW_ARM_DISARM_VIA_TX_YAW
+    //#define ALLOW_ARM_DISARM_VIA_TX_ROLL
 
   /***********************          Cam Stabilisation             ***********************/
     /* The following lines apply only for a pitch/roll tilt stabilization system. Uncomment the first or second line to activate it */
@@ -319,10 +319,10 @@
       //#define SERIAL_SUM_PPM         PITCH,YAW,THROTTLE,ROLL,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Graupner/Spektrum
       //#define SERIAL_SUM_PPM         ROLL,PITCH,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Robe/Hitec/Futaba
       //#define SERIAL_SUM_PPM         ROLL,PITCH,YAW,THROTTLE,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For Multiplex
-      //#define SERIAL_SUM_PPM         PITCH,ROLL,THROTTLE,YAW,AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For some Hitec/Sanwa/Others
+      #define SERIAL_SUM_PPM         THROTTLE, PITCH, ROLL, YAW, AUX1,AUX2,AUX3,AUX4,8,9,10,11 //For some Hitec/Sanwa/Others
 
       // Uncommenting following line allow to connect PPM_SUM receiver to standard THROTTLE PIN on MEGA boards (eg. A8 in CRIUS AIO)
-      //#define PPM_ON_THROTTLE
+      #define PPM_ON_THROTTLE
 
     /**********************    Spektrum Satellite Reciver    *******************************/
       /* The following lines apply only for Spektrum Satellite Receiver
@@ -351,7 +351,7 @@
       //#define SBUS
 
     /******************* RC signal from the serial port via Multiwii Serial Protocol *********/
-      #define RCSERIAL
+      // #define RCSERIAL
 
 
 
@@ -968,6 +968,20 @@
        - repeat with other values of 2, 3, 4 etc.
         */
     //#define COPTERTEST 1
+
+  /********************************************************************/
+  /****           Adjust PID values from RC transmitter by j0uni   ****/
+  /********************************************************************/
+
+#define ADJUSTPIDFROMRC 1
+#define ADJUSTPIDFROMRC_PCHANNEL 4
+#define ADJUSTPIDFROMRC_ICHANNEL 5
+#define ADJUSTPIDFROMRC_DCHANNEL 6
+#define ADJUSTPIDFROMRC_MINVALUE 600
+#define ADJUSTPIDFROMRC_MAXVALUE 1600
+#define ADJUSTPIDFROMRC_AREA ADJUSTPIDFROMRC_MAXVALUE-ADJUSTPIDFROMRC_MINVALUE
+#define ADJUSTPIDFROMRC_MAXPIDVALUE 10.0
+
 
 /*************************************************************************************************/
 /****           END OF CONFIGURABLE PARAMETERS                                                ****/

@@ -973,7 +973,7 @@
   /****           Adjust PID values from RC transmitter by j0uni   ****/
   /********************************************************************/
 
-#define ADJUSTPIDFROMRC 1
+// #define ADJUSTPIDFROMRC 1
 #define ADJUSTPIDFROMRC_PCHANNEL 4
 #define ADJUSTPIDFROMRC_ICHANNEL 5
 #define ADJUSTPIDFROMRC_DCHANNEL 6

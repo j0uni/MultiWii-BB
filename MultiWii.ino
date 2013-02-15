@@ -7,9 +7,12 @@
  the Free Software Foundation, either version 3 of the License, or 
  any later version. see <http: 
  // www.gnu.org/licenses/> 
+<<<<<<< HEAD
  
  LEVEL 7.0 0.010 100
  
+=======
+>>>>>>> origin/master
  */
 
 #include <avr/io.h> 
@@ -1061,8 +1064,6 @@ void loop ()
 #ifdef ADJUSTPIDFROMRC
       // j0uni: set P I D terms from RC
       
-      char buffer[64];
-      
       uint8_t aP, aI, aD;
   
 #ifdef ADJUSTPIDFROMRC_PCHANNEL
@@ -1078,7 +1079,6 @@ void loop ()
 #endif
 
 #ifdef ADJUSTPIDFROMRC_ICHANNEL
-
       aI = ((rcData[ADJUSTPIDFROMRC_ICHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
 
       conf.I8[ROLL]  = aI;
@@ -1088,19 +1088,15 @@ void loop ()
 
 #ifdef ADJUSTPIDFROMRC_DCHANNEL
       aD = ((rcData[ADJUSTPIDFROMRC_DCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
-
-
       conf.D8[ROLL]  = aD;
       conf.D8[PITCH]  = aD;
-      //      conf.D8[YAW]  = 0;
 #endif
+
 
       if (adjustSavingCounter<255) adjustSavingCounter++;
 
       if ((!f.ARMED) && (adjustSavingCounter > 10)) // save immediately when disarmed
       {
-        // SerialWriteString ("adjust: writing to eeprom\\n") ; 
-
         writeParams (1);
         adjustSavingCounter=0;
       }
@@ -1118,7 +1114,6 @@ void loop ()
     }
     
     oneHertzCounter++;
-
 
     // 50Hz 
     rcTime = currentTime + 20000; 
@@ -1942,6 +1937,10 @@ void loop ()
   writeMotors () ; 
 
 }
+
+
+
+
 
 
 

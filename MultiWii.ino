@@ -7,6 +7,9 @@
  the Free Software Foundation, either version 3 of the License, or 
  any later version. see <http: 
  // www.gnu.org/licenses/> 
+ 
+ LEVEL 7.0 0.010 100
+ 
  */
 
 #include <avr/io.h> 
@@ -971,6 +974,7 @@ void setup ()
   // important for gyro only conf 
 
   debugmsg_append_str ("initialization completed\\n") ; 
+  SerialWriteString("start");
 
 }
 
@@ -1056,22 +1060,38 @@ void loop ()
 
 #ifdef ADJUSTPIDFROMRC
       // j0uni: set P I D terms from RC
-
+      
+      char buffer[64];
+      
+      uint8_t aP, aI, aD;
+  
 #ifdef ADJUSTPIDFROMRC_PCHANNEL
-      conf.P8[ROLL]  = ((rcData[ADJUSTPIDFROMRC_PCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
-      conf.P8[PITCH]  = ((rcData[ADJUSTPIDFROMRC_PCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
-      conf.P8[YAW]  = ((rcData[ADJUSTPIDFROMRC_PCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
+
+      aP = ((rcData[ADJUSTPIDFROMRC_PCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
+
+      //sprintf(buffer, "aP = %d rc=%d\n", aP,rcData[ADJUSTPIDFROMRC_PCHANNEL]);
+      //SerialWriteString(buffer);
+
+      conf.P8[ROLL]  = aP;
+      conf.P8[PITCH]  = aP;
+      conf.P8[YAW]  = aP;
 #endif
 
 #ifdef ADJUSTPIDFROMRC_ICHANNEL
-      conf.I8[ROLL]  = ((rcData[ADJUSTPIDFROMRC_ICHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
-      conf.I8[PITCH]  = ((rcData[ADJUSTPIDFROMRC_ICHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
-      conf.I8[YAW]  = ((rcData[ADJUSTPIDFROMRC_ICHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
+
+      aI = ((rcData[ADJUSTPIDFROMRC_ICHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
+
+      conf.I8[ROLL]  = aI;
+      conf.I8[PITCH]  = aI;
+      conf.I8[YAW]  = aI;
 #endif
 
 #ifdef ADJUSTPIDFROMRC_DCHANNEL
-      conf.D8[ROLL]  = ((rcData[ADJUSTPIDFROMRC_DCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
-      conf.D8[PITCH]  = ((rcData[ADJUSTPIDFROMRC_DCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
+      aD = ((rcData[ADJUSTPIDFROMRC_DCHANNEL]-ADJUSTPIDFROMRC_MINVALUE)/ADJUSTPIDFROMRC_AREA)*ADJUSTPIDFROMRC_MAXPIDVALUE;
+
+
+      conf.D8[ROLL]  = aD;
+      conf.D8[PITCH]  = aD;
       //      conf.D8[YAW]  = 0;
 #endif
 
@@ -1079,6 +1099,8 @@ void loop ()
 
       if ((!f.ARMED) && (adjustSavingCounter > 10)) // save immediately when disarmed
       {
+        // SerialWriteString ("adjust: writing to eeprom\\n") ; 
+
         writeParams (1);
         adjustSavingCounter=0;
       }
@@ -1094,6 +1116,8 @@ void loop ()
       oneHertzCounter=0;
 
     }
+    
+    oneHertzCounter++;
 
 
     // 50Hz 
@@ -1918,6 +1942,7 @@ void loop ()
   writeMotors () ; 
 
 }
+
 
 
 

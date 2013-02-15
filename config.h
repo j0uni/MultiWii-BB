@@ -126,6 +126,9 @@
       //#define Bobs_10DOF_BMP_V1 // BobsQuads 10DOF V1 with ITG3200, BMA180, HMC5883L & BMP180 - BMP180 is software compatible with BMP085
       //#define FLYDUINO_MPU
       #define CRIUS_AIO_PRO_V1
+      
+      #define MPU6050_LPF_20HZ 1 
+      
       //#define DESQUARED6DOFV2GO  // DEsquared V2 with ITG3200 only
       //#define DESQUARED6DOFV4    // DEsquared V4 with MPU6050
       //#define LADYBIRD
@@ -887,7 +890,7 @@
     /* Set the Low Pass Filter factor for ACC
        Increasing this value would reduce ACC noise (visible in GUI), but would increase ACC lag time
        Comment this out if you want to set a specific coeff (non default)*/
-    //#define ACC_LPF_FACTOR 100
+    #define ACC_LPF_FACTOR 100
 
     /* Set the Low Pass Filter factor for Magnetometer
        Increasing this value would reduce Magnetometer noise (not visible in GUI), but would increase Magnetometer lag time
@@ -928,7 +931,7 @@
     //#define LCD_TELEMETRY_DEBUG 6  //This form stays on the screen specified.
 
     /* Enable string transmissions from copter to GUI */
-    //#define DEBUGMSG
+    // #define DEBUGMSG
 
 
   /********************************************************************/
@@ -974,13 +977,13 @@
   /********************************************************************/
 
 #define ADJUSTPIDFROMRC 1
-#define ADJUSTPIDFROMRC_PCHANNEL 4
-#define ADJUSTPIDFROMRC_ICHANNEL 5
-#define ADJUSTPIDFROMRC_DCHANNEL 6
-#define ADJUSTPIDFROMRC_MINVALUE 600
-#define ADJUSTPIDFROMRC_MAXVALUE 1600
-#define ADJUSTPIDFROMRC_AREA ADJUSTPIDFROMRC_MAXVALUE-ADJUSTPIDFROMRC_MINVALUE
-#define ADJUSTPIDFROMRC_MAXPIDVALUE 10.0
+#define ADJUSTPIDFROMRC_PCHANNEL AUX1
+#define ADJUSTPIDFROMRC_ICHANNEL AUX3
+#define ADJUSTPIDFROMRC_DCHANNEL AUX2
+#define ADJUSTPIDFROMRC_MINVALUE 1000
+#define ADJUSTPIDFROMRC_MAXVALUE 2000
+#define ADJUSTPIDFROMRC_AREA (float)(ADJUSTPIDFROMRC_MAXVALUE-ADJUSTPIDFROMRC_MINVALUE)
+#define ADJUSTPIDFROMRC_MAXPIDVALUE 100.0
 
 
 /*************************************************************************************************/
